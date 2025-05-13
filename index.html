@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayush Warsh</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon_package_v0.16/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon_package_v0.16/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon_package_v0.16/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- EmailJS Library -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<!-- 
+  EmailJS Setup Instructions:
+  1. Create an account at https://www.emailjs.com/
+  2. Create a new Email Service (e.g., Gmail, Outlook, etc.)
+  3. Create an Email Template with ID 'template_qiwpnkf' with the following content:
+
+  Subject: New contact form message from {{from_name}}
+
+  Hello {{to_name}},
+
+  You have received a new message from your website contact form:
+
+  Name: {{from_name}}
+  Email: {{from_email}}
+  Phone: {{phone}}
+
+  Message:
+  {{message}}
+
+  This message was sent to: {{email_to}}
+
+  Best regards,
+  Your Website
+
+  4. Make sure your EmailJS service ID 'service_wevfrbj' is correctly connected to your email provider
+  5. Your public key 'fufK2NJQ92bvpbrYy' is already set in app.js
+-->
+</head>
+
+<body>
+  <div class="theme-switch-wrapper">
+    <div class="theme-switch" id="theme-switch" title="Toggle Dark/Light Mode"></div>
+  </div>
+  <main>
+    <header id="header">
+      <div class="overlay overlay-lg">
+        <img src="./img/shapes/square.png" class="shape square" alt="" />
+        <img src="./img/shapes/circle.png" class="shape circle" alt="" />
+        <img src="./img/shapes/half-circle.png" class="shape half-circle1" alt="" />
+        <img src="./img/shapes/half-circle.png" class="shape half-circle2" alt="" />
+        <img src="./img/shapes/x.png" class="shape xshape" alt="" />
+        <img src="./img/shapes/wave.png" class="shape wave wave1" alt="" />
+        <img src="./img/shapes/wave.png" class="shape wave wave2" alt="" />
+        <img src="./img/shapes/triangle.png" class="shape triangle" alt="" />
+        <img src="./img/shapes/letters.png" class="letters" alt="" />
+        <img src="./img/shapes/points1.png" class="points points1" alt="" />
+        <div class="animated-background"></div>
+      </div>
+
+      <nav>
+        <div class="container">
+          <div class="logo">
+            <img src="/my img/ayush-warsh-high-resolution-logo-transparent.png" alt="" />
+          </div>
+
+          <div class="links">
+            <ul>
+              <li>
+                <a href="#header">Home</a>
+              </li>
+              <li>
+                <a href="#projects">Projects</a>
+              </li>
+              <li>
+                <a href="gallery.html">Gallery</a>
+              </li>
+              <li>
+                <a href="#about">About</a>
+              </li>
+              <li>
+                <a href="#contact">Contact</a>
+              </li>
+              <!-- <li>
+                <a href="https://www.instagram.com/the_ayush_jaiswal67/" class="active">Instagram</a>
+              </li> -->
+              <button class="btn-53">
+                <div class="original">Button</div>
+                <div class="letters">
+                  
+                  <span>I</span>
+                  <span>N</span>
+                  <span>s</span>
+                  <span>t</span>
+                  <span>a</span>
+                  <span>g</span>
+                  <span>r</span>
+                  <span>a</span>
+                  <span>m</span>
+                </div>
+              </button>
+            </ul>
+          </div>
+
+          <div class="hamburger-menu">
+            <div class="bar"></div>
+          </div>
+        </div>
+      </nav>
+      
+      <div class="header-content">
+        <div class="container grid-2">
+          <div class="column-1">
+            <h1 class="header-title">Ayush Warsh</h1>
+            <p class="text">
+              Hello, I'm <span class="highlight">Ayush Warsh</span>, Currently I'm pursuing my
+              B.Tech Degree in Electronics & Communication Engineering From
+              <a href="https://www.gecvaishali.org/" class="link-highlight">Government Engineering College Vaishali</a>
+            </p>
+            <div class="header-buttons">
+              <a href="#about" class="btn">About Me</a>
+              <a href="#contact" class="btn btn-outline">Get In Touch</a>
+            </div>
+            <div class="social-icons">
+              <a href="https://www.instagram.com/the_ayush_jaiswal67/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://www.linkedin.com/in/ayush-warsh-646562251" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://github.com/" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+
+          <div class="column-2 image">
+            <img src="./img/shapes/points2.png" class="points points2" alt="" />
+            <img src="/my img/graph.png" class="img-element z-index" alt="" />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="portfolio section" id="projects">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="title" data-title="My Work">Projects</h3>
+          <p class="subtitle visible-subtitle">Showcasing my technical skills and development projects</p>
+        </div>
+
+        <div class="section-body">
+          <!-- Projects will be displayed in a horizontal layout with image and details side by side -->
+          <div class="projects-list">
+            <!-- Project 1 -->
+            <div class="project-horizontal animate-float">
+              <div class="project-image">
+                <iframe src="https://snapshrinktools.netlify.app/" title="Image-PDF-Toolkit Live Demo" frameborder="0"></iframe>
+              </div>
+              <div class="project-details-wrapper">
+                <h3 class="project-title">Image-PDF-Toolkit</h3>
+                <p class="project-desc">A comprehensive web application built with React that offers multiple tools for image and PDF manipulation. Features include background removal/changing for images, JPG to PDF conversion, PDF merging, compression, and resizing functionality for both images and PDFs.</p>
+                <div class="tech-list">
+                  <span class="tech-item">React.js</span>
+                  <span class="tech-item">JavaScript</span>
+                  <span class="tech-item">HTML5</span>
+                  <span class="tech-item">CSS3</span>
+                  <span class="tech-item">API Integration</span>
+                </div>
+                <div class="tech-stack">
+                  <div class="tech">
+                    <div class="tech-name">React.js</div>
+                    <div class="tech-percentage" style="width: 55%;">55%</div>
+                  </div>
+                  <div class="tech">
+                    <div class="tech-name">JavaScript</div>
+                    <div class="tech-percentage" style="width: 25%;">25%</div>
+                  </div>
+                  <div class="tech">
+                    <div class="tech-name">HTML/CSS</div>
+                    <div class="tech-percentage" style="width: 20%;">20%</div>
+                  </div>
+                </div>
+                <div class="project-links">
+                  <a href="https://snapshrinktools.netlify.app/" class="project-btn" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Live Demo
+                  </a>
+                  <a href="https://github.com/ayushwarsh/image-pdf-toolkit" class="project-btn" target="_blank">
+                    <i class="fab fa-github"></i> Source Code
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Project 2 -->
+            <!-- <div class="project-horizontal animate-float animate-delay-1">
+              <div class="project-image">
+                <iframe src="https://ayushwarsh-ecommerce.netlify.app/" title="E-Commerce Platform Live Demo" frameborder="0"></iframe>
+              </div>
+              <div class="project-details-wrapper">
+                <h3 class="project-title">E-Commerce Platform</h3>
+                <p class="project-desc">A full-featured shopping application with user authentication, product catalog, cart functionality, and secure payment integration. Features responsive design for mobile and desktop users.</p>
+                <div class="tech-list">
+                  <span class="tech-item">React Native</span>
+                  <span class="tech-item">Node.js</span>
+                  <span class="tech-item">Firebase</span>
+                  <span class="tech-item">Payment Gateway</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://ayushwarsh-ecommerce.netlify.app/" class="project-btn" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Live Demo
+                  </a>
+                  <a href="https://github.com/ayushwarsh/ecommerce-platform" class="project-btn" target="_blank">
+                    <i class="fab fa-github"></i> Source Code
+                  </a>
+                </div>
+              </div>
+            </div> -->
+            
+            <!-- Project 3 -->
+            <!-- <div class="project-horizontal animate-float animate-delay-2">
+              <div class="project-image">
+                <iframe src="https://ayushwarsh-taskmanager.netlify.app/" title="Task Management System Live Demo" frameborder="0"></iframe>
+              </div>
+              <div class="project-details-wrapper">
+                <h3 class="project-title">Task Management System</h3>
+                <p class="project-desc">A productivity application that helps users organize tasks, set priorities, track progress, and collaborate with team members. Includes features like deadline notifications and progress tracking.</p>
+                <div class="tech-list">
+                  <span class="tech-item">React.js</span>
+                  <span class="tech-item">MongoDB</span>
+                  <span class="tech-item">Express.js</span>
+                  <span class="tech-item">Socket.io</span>
+                </div>
+                <div class="project-links">
+                  <a href="https://ayushwarsh-taskmanager.netlify.app/" class="project-btn" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Live Demo
+                  </a>
+                  <a href="https://github.com/ayushwarsh/task-management-system" class="project-btn" target="_blank">
+                    <i class="fab fa-github"></i> Source Code
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="more-work">
+            <a href="gallery.html" class="btn">
+              View My Gallery <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about section" id="about">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="title" data-title="Who Am I">About me</h3>
+        </div>
+
+        <div class="section-body grid-2">
+          <div class="column-1">
+            <h3 class="title-sm">Hello, I'm Ayush Warsh</h3>
+            <p class="text">
+              A B.Tech student in ECE at GEC Vaishali. I came from Begusarai, Bihar. I'm passionate about the software field. As
+              a member of the E-Cell in my college, I gain skills in Communication and building Startup. I aspire to become a skilled software engineer, showcasing dedication
+              and enthusiasm in both academics and extracurricular activities.
+            </p>
+            
+            <div class="about-info">
+              <div class="info-item">
+                <span class="info-title">Education:</span>
+                <span class="info-text">B.Tech in Electronics & Communication</span>
+              </div>
+              <div class="info-item">
+                <span class="info-title">Location:</span>
+                <span class="info-text">Begusarai, Bihar</span>
+              </div>
+              <div class="info-item">
+                <span class="info-title">Email:</span>
+                <span class="info-text">official.ayushwarsh7@gmail.com</span>
+              </div>
+              <div class="info-item">
+                <span class="info-title">Interests:</span>
+                <span class="info-text">Software Development, Startups, Communication</span>
+              </div>
+            </div>
+
+            <div class="skills">
+              <div class="skill html">
+                <h3 class="skill-title">HTML</h3>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="90%"></div>
+                </div>
+              </div>
+              <div class="skill css">
+                <h3 class="skill-title">CSS</h3>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="70%"></div>
+                </div>
+              </div>
+              <div class="skill C">
+                <h3 class="skill-title">C Language</h3>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="90%"></div>
+                </div>
+              </div>
+              <div class="skill js">
+                <h3 class="skill-title">JavaScript</h3>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="65%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="column-2 image">
+            <img src="./img/shapes/points4.png" class="points" alt="" />
+            <div class="image-wrapper">
+              <img src="./my img/IMG_20231108_232149.jpg" class="z-index profile-img" alt="Ayush Warsh" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blog section">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="title" data-title="Recent Post ">My Post</h3>
+          <p class="text">
+            Social Media Post
+          </p>
+        </div>
+
+        <div class="blog-wrapper">
+          <div class="blog-wrap">
+            <img src="./img/shapes/points3.png" alt="" class="points points-sq" />
+
+            <div class="blog-card">
+              <div class="blog-image">
+                <img src="./my img/368082042_306153711967627_5512246310977269504_n.heic.jpg" alt="" />
+              </div>
+
+              <div class="blog-content">
+                <div class="blog-info">
+                  <h5 class="blog-date">August, 16 2022</h5>
+                  <h5 class="blog-user"><i class="fas fa-user"></i>Instagram</h5>
+                </div>
+                <h3 class="title-sm">15th August Independence Day</h3>
+
+                <a href="https://www.instagram.com/p/CwAq8_cs0sp/" class="btn small">Visit</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="blog-wrap">
+            <div class="blog-card">
+              <div class="blog-image">
+                <img src="/my img/WhatsApp Image 2023-11-23 at 12.40.25 PM.jpeg" alt="" />
+              </div>
+
+              <div class="blog-content">
+                <div class="blog-info">
+                  <h5 class="blog-date">April, 24 2022</h5>
+                  <h5 class="blog-user"><i class="fas fa-user"></i>Instagram</h5>
+                </div>
+                <h3 class="title-sm">Insta Post</h3>
+
+                <a href="https://www.instagram.com/p/CcvaswVPSQX/" class="btn small"> Visit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="title" data-title="Get In Touch">Contact Me</h3>
+          <p class="subtitle">Let's connect and discuss opportunities</p>
+        </div>
+        <div class="contact-box">
+          <div class="contact-info">
+            <h3 class="title">Let's talk about everything</h3>
+            <p class="text">
+              Feel free to reach out for collaboration, questions, or just to say hello. I'm always open to connecting with new people!
+            </p>
+            <div class="information-wrap">
+              <div class="information">
+                <div class="contact-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <p class="info-text">Begusarai, Bihar</p>
+              </div>
+
+              <div class="information">
+                <div class="contact-icon">
+                  <i class="fas fa-paper-plane"></i>
+                </div>
+                <p class="info-text"><a href="mailto:official.ayushwarsh7@gmail.com">official.ayushwarsh7@gmail.com</a></p>
+              </div>
+
+              <div class="information">
+                <div class="contact-icon">
+                  <i class="fas fa-phone-alt"></i>
+                </div>
+                <p class="info-text">+91 7856902500</p>
+              </div>
+              
+              <div class="information">
+                <div class="contact-icon">
+                  <i class="fab fa-linkedin-in"></i>
+                </div>
+                <p class="info-text"><a href="https://www.linkedin.com/in/ayush-warsh-646562251" target="_blank">LinkedIn Profile</a></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form">
+            <h3 class="title">Send me a message</h3>
+            <form id="contact-form">
+              <div class="row">
+                <input type="text" class="contact-input" name="from_name" id="from_name" placeholder="First Name" required />
+                <input type="text" class="contact-input" name="last_name" id="last_name" placeholder="Last Name" required />
+              </div>
+
+              <div class="row">
+                <input type="tel" class="contact-input" name="phone" id="phone" placeholder="Phone" />
+                <input type="email" class="contact-input" name="from_email" id="from_email" placeholder="Email" required />
+              </div>
+
+              <div class="row">
+                <textarea name="message" id="message" class="contact-input textarea" placeholder="Message" required></textarea>
+              </div>
+              <button type="submit" class="btn">Send Message</button>
+              <div id="form-status"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="grid-4">
+        <div class="grid-4-col footer-about">
+          <h3 class="title-sm">About Me</h3>
+          <p class="text">
+            I'm Ayush Warsh, a B.Tech student passionate about technology and software development. Always learning and growing.
+          </p>
+        </div>
+
+        <div class="grid-4-col footer-links">
+          <h3 class="title-sm">Quick Links</h3>
+          <ul>
+            <li>
+              <a href="#header">Home</a>
+            </li>
+            <li>
+              <a href="#projects">Projects</a>
+            </li>
+            <li>
+              <a href="gallery.html">Gallery</a>
+            </li>
+            <li>
+              <a href="#about">About</a>
+            </li>
+            <li>
+              <a href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid-4-col footer-links">
+          <h3 class="title-sm">Services</h3>
+          <ul>
+            <li>
+              <a href="#">Web Development</a>
+            </li>
+            <li>
+              <a href="#">App Development</a>
+            </li>
+            <li>
+              <a href="#">UI/UX Design</a>
+            </li>
+            <li>
+              <a href="#">Consulting</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid-4-col footer-newstletter">
+          <h3 class="title-sm">Subscribe</h3>
+          <p class="text">
+            Stay updated with my latest projects and news
+          </p>
+          <div class="footer-input-wrap">
+            <input type="email" class="footer-input" placeholder="Email" />
+            <a href="#" class="input-arrow">
+              <i class="fas fa-angle-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-footer">
+        <div class="copyright">
+          <p class="text">
+            Copyright&copy;2023 All rights reserved | Made by
+            <span><a href="https://www.instagram.com/the_ayush_jaiswal67/" class="designer-link">Ayush Warsh</a></span>
+          </p>
+        </div>
+
+        <div class="followme-wrap">
+          <div class="followme">
+            <h3>Follow me</h3>
+            <span class="footer-line"></span>
+            <div class="social-media">
+              <a href="https://www.facebook.com/ayushjaiswal970">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="https://x.com/AyushJa">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="https://www.instagram.com/the_ayush_jaiswal67/">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/ayush-warsh-646562251">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://github.com/">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="back-btn-wrap">
+            <a href="#" class="back-btn">
+              <i class="fas fa-chevron-up"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="./js/isotope.pkgd.min.js"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="./js/app.js"></script>
+  <script>
+    // Theme switcher functionality
+    const themeSwitch = document.getElementById('theme-switch');
+    const htmlElement = document.documentElement;
+    
+    // Check for saved theme preference or respect OS preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      htmlElement.setAttribute('data-theme', 'dark');
+    }
+    
+    // Toggle theme when switch is clicked
+    themeSwitch.addEventListener('click', function() {
+      const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+    
+    // Add missing descriptions to gallery items
+    document.addEventListener('DOMContentLoaded', function() {
+      // Update image descriptions for gallery items
+      const galleryItems = document.querySelectorAll('.grid-item');
+      
+      galleryItems.forEach((item, index) => {
+        const imgDescription = item.querySelector('.img-description');
+        if (!imgDescription.innerHTML.trim()) {
+          const categories = [...item.classList]
+            .filter(cls => !['grid-item', 'gallery-image'].includes(cls))
+            .join(' & ');
+            
+          const titles = [
+            'Campus Life', 'Special Moment', 'Event Day', 
+            'Friend Meet', 'Celebration', 'College Trip', 
+            'Project Display', 'Conference'
+          ];
+          
+          const descriptions = [
+            'Creating memories', 'Unforgettable time', 'Learning experience',
+            'Growing together', 'Achievements', 'New adventures',
+            'Skills showcase', 'Knowledge sharing'
+          ];
+          
+          imgDescription.innerHTML = `
+            <h3>${titles[index % titles.length]}</h3>
+            <h5>${descriptions[index % descriptions.length]}</h5>
+          `;
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

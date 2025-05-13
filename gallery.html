@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayush Warsh - Gallery</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon_package_v0.16/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon_package_v0.16/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon_package_v0.16/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <style>
+    /* Additional gallery page styles */
+    .gallery-hero {
+      position: relative;
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+    
+    .gallery-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+    
+    .gallery-hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(2px);
+    }
+    
+    .gallery-hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: white;
+      max-width: 800px;
+      padding: 0 2rem;
+    }
+    
+    .gallery-hero-title {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      animation: fadeInDown 1s ease;
+    }
+    
+    .gallery-hero-text {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      animation: fadeInUp 1s ease 0.3s forwards;
+      opacity: 0;
+    }
+    
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+    
+    .gallery-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px var(--shadow-color);
+      transition: all 0.5s;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: calc(var(--i) * 0.1s);
+      height: 300px;
+    }
+    
+    .gallery-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px var(--shadow-color);
+    }
+    
+    .gallery-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1s;
+    }
+    
+    .gallery-item:hover .gallery-image {
+      transform: scale(1.1);
+    }
+    
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      padding: 2rem 1.5rem 1.5rem;
+      transform: translateY(100%);
+      transition: transform 0.5s;
+    }
+    
+    .gallery-item:hover .gallery-overlay {
+      transform: translateY(0);
+    }
+    
+    .gallery-title {
+      color: white;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+    
+    .gallery-category {
+      color: var(--accent-color);
+      font-size: 0.9rem;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+    
+    .gallery-description {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    
+    .gallery-button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(0,0,0,0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transform: scale(0);
+      transition: transform 0.3s, background-color 0.3s;
+    }
+    
+    .gallery-item:hover .gallery-button {
+      transform: scale(1);
+    }
+    
+    .gallery-button:hover {
+      background-color: var(--main-color);
+    }
+    
+    .back-home {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 100;
+      text-decoration: none;
+      background-color: var(--main-color);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s, background-color 0.3s;
+    }
+    
+    .back-home:hover {
+      transform: translateY(-3px);
+      background-color: var(--accent-color);
+    }
+    
+    [data-theme="dark"] .gallery-hero::before {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    
+    [data-theme="dark"] .gallery-button {
+      background-color: rgba(139, 92, 246, 0.3);
+    }
+    
+    [data-theme="dark"] .gallery-button:hover {
+      background-color: var(--accent-color);
+    }
+    
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="theme-switch-wrapper">
+    <div class="theme-switch" id="theme-switch" title="Toggle Dark/Light Mode"></div>
+  </div>
+  
+  <a href="index.html" class="back-home">
+    <i class="fas fa-arrow-left"></i> Back to Home
+  </a>
+  
+  <main>
+    <section class="gallery-hero">
+      <img src="./my img/IMG_20231108_232149.jpg" alt="Gallery cover" class="gallery-hero-bg">
+      <div class="gallery-hero-content">
+        <h1 class="gallery-hero-title">My Gallery</h1>
+        <p class="gallery-hero-text">A collection of special moments, achievements, and memories from my journey</p>
+      </div>
+    </section>
+    
+    <div class="container">
+      <div class="filter" style="margin-bottom: 2rem;">
+        <button class="filter-btn active" data-filter="*">All</button>
+        <button class="filter-btn" data-filter=".college">College</button>
+        <button class="filter-btn" data-filter=".events">Events</button>
+        <button class="filter-btn" data-filter=".travels">Travels</button>
+        <button class="filter-btn" data-filter=".achievements">Achievements</button>
+      </div>
+      
+      <div class="gallery-grid grid">
+        <div class="gallery-item grid-item college" style="--i:1">
+          <img src="./my img/IMG_20231108_005137.jpg" alt="College memory" class="gallery-image">
+          <div class="gallery-overlay">
+            <span class="gallery-category">College</span>
+            <h3 class="gallery-title">College Life</h3>
+            <p class="gallery-description">Beautiful moments with friends at college campus</p>
+          </div>
+          <a href="./my img/IMG_20231108_005137.jpg" class="gallery-button" target="_blank">
+            <i class="fas fa-expand"></i>
+          </a>
+        </div>
+        
+        <div class="gallery-item grid-item events" style="--i:2">
+          <img src="./my img/IMG_20230912_235745_904.jpg" alt="Event memory" class="gallery-image">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Events</span>
+            <h3 class="gallery-title">Special Event</h3>
+            <p class="gallery-description">Memorable gathering with colleagues</p>
+          </div>
+          <a href="./my img/IMG_20230912_235745_904.jpg" class="gallery-button" target="_blank">
+            <i class="fas fa-expand"></i>
+          </a>
+        </div>
+        
+        <div class="gallery-item grid-item events" style="--i:3">
+          <img src="./my img/IMG_20231108_232149.jpg" alt="College event" class="gallery-image">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Events</span>
+            <h3 class="gallery-title">Conference Day</h3>
+            <p class="gallery-description">Knowledge sharing session with experts</p>
+          </div>
+          <a href="./my img/IMG_20231108_232149.jpg" class="gallery-button" target="_blank">
+            <i class="fas fa-expand"></i>
+          </a>
+        </div>
+        
+        <div class="gallery-item grid-item college" style="--i:4">
+          <img src="./my img/IMG_20231104_161248.jpg" alt="Friends gathering" class="gallery-image">
+          <div class="gallery-overlay">
+            <span class="gallery-category">College</span>
+            <h3 class="gallery-title">Friend Meet</h3>
+            <p class="gallery-description">Making connections that last a lifetime</p>
+          </div>
+          <a href="./my img/IMG_20231104_161248.jpg" class="gallery-button" target="_blank">
+            <i class="fas fa-expand"></i>
+          </a>
+        </div>
+        
+        <div class="gallery-item grid-item achievements" style="--i:5">
+          <img src="./my img/IMG_20220301_160840.jpg" alt="Achievement" class="gallery-image">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Achievements</span>
+            <h3 class="gallery-title">Achievement</h3>
+            <p class="gallery-description">Proud moment of recognition</p>
+          </div>
+          <a href="./my img/IMG_20220301_160840.jpg" class="gallery-button" target="_blank">
+            <i class="fas fa-expand"></i>
+          </a>
+        </div>
+        
+        <div class="gallery-item grid-item events" style="--i:6">
+          <img src="./my img/IMG_20210726_143333.jpg" alt="Tech event" class="gallery-image">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Events</span>
+            <h3 class="gallery-title">Tech Event</h3>
+            <p class="gallery-description">Innovation showcase with the latest technology</p>
+          </div>
+          <a href="./my img/IMG_20210726_143333.jpg" class="gallery-button" target="_blank">
+            <i class="fas fa-expand"></i>
+          </a>
+        </div>
+        
+        <div class="gallery-item grid-item travels" style="--i:7">
+          <img src="./my img/2018-09-24-16-46-08-515.jpg" alt="College trip" class="gallery-image">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Travels</span>
+            <h3 class="gallery-title">College Trip</h3>
+            <p class="gallery-description">Exploring new places together</p>
+          </div>
+          <a href="./my img/2018-09-24-16-46-08-515.jpg" class="gallery-button" target="_blank">
+            <i class="fas fa-expand"></i>
+          </a>
+        </div>
+        
+        <div class="gallery-item grid-item college" style="--i:8">
+          <img src="./my img/IMG_20210826_150857.jpg" alt="Learning session" class="gallery-image">
+          <div class="gallery-overlay">
+            <span class="gallery-category">College</span>
+            <h3 class="gallery-title">Learning Session</h3>
+            <p class="gallery-description">Gaining knowledge through collaboration</p>
+          </div>
+          <a href="./my img/IMG_20210826_150857.jpg" class="gallery-button" target="_blank">
+            <i class="fas fa-expand"></i>
+          </a>
+        </div>
+        
+        <div class="gallery-item grid-item achievements" style="--i:9">
+          <img src="./my img/IMG_20230317_193313.jpg" alt="Project display" class="gallery-image">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Achievements</span>
+            <h3 class="gallery-title">Project Display</h3>
+            <p class="gallery-description">Showcasing technical skills and innovation</p>
+          </div>
+          <a href="./my img/IMG_20230317_193313.jpg" class="gallery-button" target="_blank">
+            <i class="fas fa-expand"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="bottom-footer">
+        <div class="copyright">
+          <p class="text">
+            Copyright&copy;2023 All rights reserved | Made by
+            <span><a href="https://www.instagram.com/the_ayush_jaiswal67/" class="designer-link">Ayush Warsh</a></span>
+          </p>
+        </div>
+
+        <div class="followme-wrap">
+          <div class="followme">
+            <h3>Follow me</h3>
+            <span class="footer-line"></span>
+            <div class="social-media">
+              <a href="https://www.facebook.com/ayushjaiswal970">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="https://x.com/AyushJa">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="https://www.instagram.com/the_ayush_jaiswal67/">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/ayush-warsh-646562251">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://github.com/">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="back-btn-wrap">
+            <a href="#" class="back-btn">
+              <i class="fas fa-chevron-up"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="./js/isotope.pkgd.min.js"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="./js/app.js"></script>
+  <script>
+    // Theme switcher functionality
+    const themeSwitch = document.getElementById('theme-switch');
+    const htmlElement = document.documentElement;
+    
+    // Check for saved theme preference or respect OS preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      htmlElement.setAttribute('data-theme', 'dark');
+    }
+    
+    // Toggle theme when switch is clicked
+    themeSwitch.addEventListener('click', function() {
+      const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+    
+    // Initialize Isotope for filtering
+    document.addEventListener('DOMContentLoaded', function() {
+      const grid = document.querySelector('.gallery-grid');
+      const iso = new Isotope(grid, {
+        itemSelector: '.gallery-item',
+        layoutMode: 'fitRows',
+        transitionDuration: '0.6s',
+      });
+      
+      // Filter buttons functionality
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+          filterButtons.forEach(button => button.classList.remove('active'));
+          this.classList.add('active');
+          
+          const filterValue = this.getAttribute('data-filter');
+          iso.arrange({ filter: filterValue });
+        });
+      });
+    });
+  </script>
+</body>
+
+</html> 
