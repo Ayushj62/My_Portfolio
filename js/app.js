@@ -350,3 +350,236 @@ function testEmailJSConnection() {
     });
 }
 
+// Parallax effect for images and shapes
+const parallaxElements = document.querySelectorAll('.parallax');
+const shapes = document.querySelectorAll('.shape');
+
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    
+    parallaxElements.forEach(element => {
+        const speed = element.getAttribute('data-speed') || 0.5;
+        const yPos = -(scrolled * speed);
+        element.style.transform = `translateY(${yPos}px)`;
+    });
+
+    shapes.forEach(shape => {
+        const speed = 0.2;
+        const yPos = -(scrolled * speed);
+        shape.style.transform = `translateY(${yPos}px)`;
+    });
+});
+
+// Image hover effect with cursor tracking
+document.querySelectorAll('.gallery-image').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const deltaX = (x - centerX) / centerX;
+        const deltaY = (y - centerY) / centerY;
+
+        card.style.transform = `perspective(1000px) rotateY(${deltaX * 5}deg) rotateX(${-deltaY * 5}deg) scale3d(1.05, 1.05, 1.05)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) scale3d(1, 1, 1)';
+    });
+});
+
+// Lazy loading for images
+document.addEventListener('DOMContentLoaded', () => {
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.add('loaded');
+                observer.unobserve(img);
+            }
+        });
+    }, {
+        rootMargin: '50px',
+        threshold: 0.1
+    });
+
+    lazyImages.forEach(img => imageObserver.observe(img));
+});
+
+// Progressive image loading
+function loadImage(img) {
+    const lowQuality = img.dataset.lowres;
+    const highQuality = img.dataset.src;
+
+    if (lowQuality && highQuality) {
+        // Load low quality image first
+        const tempImage = new Image();
+        tempImage.src = lowQuality;
+        tempImage.onload = () => {
+            img.src = lowQuality;
+            img.classList.add('blur');
+
+            // Then load high quality image
+            const highQualityImage = new Image();
+            highQualityImage.src = highQuality;
+            highQualityImage.onload = () => {
+                img.src = highQuality;
+                img.classList.remove('blur');
+            };
+        };
+    }
+}
+
+// Scroll progress indicator
+const scrollIndicator = document.createElement('div');
+scrollIndicator.className = 'scroll-indicator';
+document.body.appendChild(scrollIndicator);
+
+window.addEventListener('scroll', () => {
+    const winScroll = document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    scrollIndicator.style.transform = `scaleX(${scrolled / 100})`;
+});
+
+// Smooth section reveal on scroll
+const revealSection = (entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+    root: null,
+    threshold: 0.15
+});
+
+document.querySelectorAll('.section').forEach(section => {
+    section.classList.add('section-hidden');
+    sectionObserver.observe(section);
+});
+
+// Smooth page transitions
+document.addEventListener('DOMContentLoaded', () => {
+    const transitionElement = document.createElement('div');
+    transitionElement.className = 'page-transition';
+    document.body.appendChild(transitionElement);
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            
+            if (target) {
+                transitionElement.classList.add('active');
+                
+                setTimeout(() => {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    setTimeout(() => {
+                        transitionElement.classList.remove('active');
+                    }, 500);
+                }, 300);
+            }
+        });
+    });
+});
+
+// Accessibility enhancements
+document.addEventListener('DOMContentLoaded', () => {
+    // Add skip to main content link
+    const skipLink = document.createElement('a');
+    skipLink.href = '#main';
+    skipLink.className = 'skip-to-main';
+    skipLink.textContent = 'Skip to main content';
+    document.body.insertBefore(skipLink, document.body.firstChild);
+
+    // Add proper ARIA labels to interactive elements
+    const interactiveElements = document.querySelectorAll('.interactive');
+    interactiveElements.forEach(element => {
+        if (!element.getAttribute('aria-label') && !element.getAttribute('aria-labelledby')) {
+            const label = element.textContent.trim() || element.getAttribute('title');
+            if (label) {
+                element.setAttribute('aria-label', label);
+            }
+        }
+    });
+
+    // Handle responsive navigation
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
+    
+    if (menuToggle && nav) {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-controls', 'navigation');
+        nav.setAttribute('id', 'navigation');
+        
+        menuToggle.addEventListener('click', () => {
+            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !isExpanded);
+            nav.classList.toggle('active');
+        });
+
+        // Close menu on escape key
+        nav.addEventListener('keyup', (e) => {
+            if (e.key === 'Escape') {
+                menuToggle.setAttribute('aria-expanded', 'false');
+                nav.classList.remove('active');
+            }
+        });
+    }
+
+    // Handle reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    
+    function updateAnimationPreference(e) {
+        document.body.classList.toggle('reduce-motion', e.matches);
+        
+        // Update scroll behavior
+        document.documentElement.style.scrollBehavior = e.matches ? 'auto' : 'smooth';
+        
+        // Update transition durations
+        const animatedElements = document.querySelectorAll('.section, .interactive');
+        animatedElements.forEach(element => {
+            element.style.transitionDuration = e.matches ? '0.01ms' : '0.3s';
+        });
+    }
+    
+    prefersReducedMotion.addEventListener('change', updateAnimationPreference);
+    updateAnimationPreference(prefersReducedMotion);
+
+    // Responsive image handling
+    const updateImageQuality = () => {
+        const images = document.querySelectorAll('img[data-src]');
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const isSaveData = connection ? connection.saveData : false;
+        
+        images.forEach(img => {
+            if (isSaveData || connection?.type === 'cellular') {
+                // Load lower quality images for slow connections or save-data
+                img.src = img.dataset.lowres || img.dataset.src;
+            } else {
+                // Load high quality images for fast connections
+                img.src = img.dataset.src;
+            }
+        });
+    };
+
+    // Update image quality when network conditions change
+    if ('connection' in navigator) {
+        navigator.connection.addEventListener('change', updateImageQuality);
+    }
+    updateImageQuality();
+});
+

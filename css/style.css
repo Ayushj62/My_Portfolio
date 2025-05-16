@@ -17,6 +17,9 @@
   /* Background particle effect variables */
   --particle-size: 20vmin;
   --particle-duration: 40s;
+  --container-width-lg: 75%;
+  --container-width-md: 86%;
+  --container-width-sm: 90%;
 }
 
 /* Dark Theme Colors */
@@ -273,6 +276,8 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+  font-size: 16px;
 }
 
 body,
@@ -300,6 +305,8 @@ img {
   max-width: 92rem;
   padding: 0 4rem;
   margin: 0 auto;
+  width: var(--container-width-lg);
+  max-width: 1920px;
 }
 
 .stop-scrolling {
@@ -670,6 +677,62 @@ header .circle {
   top: -5px;
   left: 15px;
   opacity: 0.06;
+}
+
+/* Enhanced header animations */
+.header-content .header-title {
+  animation: fadeInUp 1s ease forwards;
+  opacity: 0;
+}
+
+.header-content .text {
+  animation: fadeInUp 1s ease 0.3s forwards;
+  opacity: 0;
+}
+
+.header-content .btn {
+  animation: fadeInUp 1s ease 0.6s forwards;
+  opacity: 0;
+}
+
+.social-icons {
+  animation: fadeInUp 1s ease 0.9s forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animated background effect */
+.animated-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(106, 48, 147, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(160, 68, 255, 0.1) 0%, transparent 50%);
+  animation: backgroundShift 15s ease infinite alternate;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+@keyframes backgroundShift {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
 }
 
 /* End header */
@@ -1601,7 +1664,7 @@ header .circle {
 .review-name {
   font-size: 1.3rem;
   font-weight: 700;
-  color: var(--dark-one);
+  color: var (--dark-one);
 }
 
 .review-job {
@@ -1666,7 +1729,7 @@ header .circle {
 
 .contact-box {
   width: 100%;
-  background-color: var(--light-one);
+  background-color: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
   padding: 4rem;
   display: grid;
@@ -1675,6 +1738,14 @@ header .circle {
   overflow: hidden;
   z-index: 1;
   position: relative;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 70px var(--shadow-color);
 }
 
 .contact-box:before {
@@ -2007,6 +2078,16 @@ header .circle {
 
 .back-btn-wrap {
   margin-left: 2.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(20px);
+}
+
+.back-btn-wrap.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 .back-btn {
@@ -2020,11 +2101,39 @@ header .circle {
   color: #fff;
   transition: var(--transition-fast);
   box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
+  position: relative;
+  overflow: hidden;
 }
 
 .back-btn:hover {
   background-color: var(--accent-color);
   box-shadow: 0 0 25px rgba(236, 72, 153, 0.6);
+  transform: translateY(-3px);
+}
+
+.back-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, var(--main-color), var(--accent-color));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.back-btn:hover::before {
+  opacity: 1;
+}
+
+.back-btn i {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+.back-btn:hover i {
   transform: translateY(-3px);
 }
 
@@ -3810,11 +3919,16 @@ a{
   display: grid !important;
   grid-template-columns: 1fr 1fr !important;
   gap: 2rem !important;
-  background-color: rgba(255, 255, 255, 0.9) !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
   border-radius: 15px !important;
   overflow: hidden !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
-  transition: all 0.5s !important;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backdrop-filter: blur(10px) !important;
   position: relative !important;
   z-index: 20 !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -4164,8 +4278,8 @@ a{
     border-radius: 15px 15px 0 0;
   }
   
-  .project-horizontal .project-image iframe {
-    border-radius: 15px 15px 0 0;
+  .project-horizontal .project-details-wrapper {
+    padding: 2rem !important;
   }
 }
 
@@ -4211,4 +4325,253 @@ a{
   .iframe-loading-overlay {
     border-radius: 15px 15px 0 0;
   }
+}
+
+/* Enhanced project card hover effects */
+.project-horizontal:hover {
+  transform: translateY(-10px) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2) !important;
+}
+
+.project-horizontal .project-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(106, 48, 147, 0.2), rgba(160, 68, 255, 0.2));
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1;
+}
+
+.project-horizontal:hover .project-image::before {
+  opacity: 1;
+}
+
+.project-horizontal .tech-stack {
+  margin-top: 1.5rem !important;
+}
+
+.project-horizontal .tech {
+  position: relative !important;
+  margin-bottom: 1rem !important;
+  overflow: hidden !important;
+}
+
+.project-horizontal .tech-percentage {
+  height: 6px !important;
+  border-radius: 3px !important;
+  background: linear-gradient(90deg, var(--main-color) 0%, var(--accent-color) 100%) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  opacity: 0;
+  transform: translateX(-100%) !important;
+  transition: transform 1s ease, opacity 0.5s ease !important;
+}
+
+.project-horizontal:hover .tech-percentage {
+  opacity: 1;
+  transform: translateX(0) !important;
+}
+
+/* Improved responsiveness for mobile devices */
+@media (max-width: 768px) {
+  .project-horizontal {
+    grid-template-columns: 1fr !important;
+    max-width: 500px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .project-horizontal .project-image {
+    height: 250px !important;
+  }
+
+  .project-horizontal .project-details-wrapper {
+    padding: 2rem !important;
+  }
+
+  .project-horizontal .project-title {
+    font-size: 1.5rem !important;
+  }
+
+  .project-horizontal .tech-list {
+    gap: 0.5rem !important;
+  }
+
+  .project-horizontal .tech-item {
+    font-size: 0.75rem !important;
+    padding: 0.3rem 0.6rem !important;
+  }
+}
+
+/* Smooth page transitions */
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--main-color);
+    z-index: 9999;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.page-transition.active {
+    transform: scaleY(1);
+}
+
+/* Enhanced scroll indicator */
+.scroll-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, var(--main-color), var(--accent-color));
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+    z-index: 1000;
+}
+
+[data-theme="dark"] .scroll-indicator {
+    background: linear-gradient(to right, var(--main-color-dark), var(--accent-color));
+}
+
+/* Scroll animations for sections */
+.section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Enhanced hover effects for interactive elements */
+.interactive {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.interactive:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .interactive:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced responsive design */
+:root {
+    --container-width-lg: 75%;
+    --container-width-md: 86%;
+    --container-width-sm: 90%;
+}
+
+/* Responsive container */
+.container {
+    width: var(--container-width-lg);
+    margin: 0 auto;
+    max-width: 1920px;
+}
+
+/* Responsive typography */
+html {
+    font-size: 16px;
+}
+
+@media screen and (max-width: 1024px) {
+    .container {
+        width: var(--container-width-md);
+    }
+
+    html {
+        font-size: 14px;
+    }
+
+    .section {
+        padding: 6rem 0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        width: var(--container-width-sm);
+    }
+
+    html {
+        font-size: 13px;
+    }
+
+    .section {
+        padding: 4rem 0;
+    }
+}
+
+/* Accessibility improvements */
+:focus {
+    outline: 3px solid var(--main-color);
+    outline-offset: 3px;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+:focus-visible {
+    outline: 3px solid var(--main-color);
+    outline-offset: 3px;
+}
+
+/* Skip to main content link for keyboard users */
+.skip-to-main {
+    position: absolute;
+    left: -999px;
+    width: 1px;
+    height: 1px;
+    top: auto;
+    background: var(--light-one);
+    color: var(--dark-one);
+    padding: 1rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    z-index: 9999;
+    transition: var(--transition-fast);
+}
+
+.skip-to-main:focus {
+    left: 0;
+    width: auto;
+    height: auto;
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+    .interactive:hover {
+        border: 2px solid CurrentColor;
+    }
+
+    .button {
+        border: 1px solid CurrentColor;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
